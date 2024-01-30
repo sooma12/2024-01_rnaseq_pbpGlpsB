@@ -17,7 +17,7 @@ module load OpenJDK/19.0.1
 module load fastqc/0.11.9
 
 FASTQDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/input
-OUT_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/fastqc_output
+OUT_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/fastqc_output_pretrim
 SCRIPT_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/scripts
 
 mkdir -p $FASTQDIR $OUT_DIR $SCRIPT_DIR
@@ -31,6 +31,3 @@ mv $SCRIPT_DIR/fastqc_rnaseq* $SCRIPT_DIR/logs
 mkdir -p $OUT_DIR/fastqc_html $OUT_DIR/fastqc_zip
 mv $FASTQDIR/*fastqc.html $OUT_DIR/fastqc_html
 mv $FASTQDIR/*fastqc.zip $OUT_DIR/fastqc_zip
-
-
-
