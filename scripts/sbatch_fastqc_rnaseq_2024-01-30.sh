@@ -16,7 +16,7 @@ echo "Loading environment and tools"
 module load OpenJDK/19.0.1
 module load fastqc/0.11.9
 
-FASTQDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/input
+FASTQDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/input/fastq
 OUT_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/fastqc_output_pretrim
 SCRIPT_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/scripts
 
