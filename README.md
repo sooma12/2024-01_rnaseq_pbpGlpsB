@@ -35,6 +35,30 @@ Adapter trimming was performed by SeqCenter; manual review of FastQC .html files
 Quality trimming and read length filtering were performed using Trimmomatic.
 
 
+```text
+From class:
+`trimRNA.sh`
+
+This script runs Trimmomatic with the following settings (identical to `trimDNA.sh` above):
+
+`PE` indicates to Trimmomatic that paired-end reads are being provided
+
+`-threads 1` specifies to use one server thread
+
+`-phred33` specifies the PHRED quality encoding in the input FASTQ files
+
+`HEADCROP:0` tells the program not to crop bases from the start of every read.  This should be unnecessary as the input data will have their adapter sequences clipped, and these reads were not multiplexed.
+
+`ILLUMINACLIP` indicates the location in the `PATH_TO_TRIMMOMATIC` directory where Illumina adapter sequences are found; the provided value will work for the Northeastern Discovery cluster.
+
+`LEADING:20` and `TRAILING:20` indicates the minimum quality to keep at the start and end of each read.
+
+`SLIDINGWINDOW:4:30` specifies the values to use in the sliding window for trimming.  These values will cause Trimmomatic to scan a sliding window of 4 bp and clip when the average quality in that 4-bp window is below 30.
+
+`MINLEN:36` sets the minimum read length to 36; shorter reads are discarded.
+
+```
+
 - Adapter trimming done by seqcenter
 - Need quality trimming
 - Filter out short reads?
