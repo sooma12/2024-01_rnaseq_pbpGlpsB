@@ -12,8 +12,9 @@
 ## Usage: sbatch sbatch_trimQualityLength_rnaseq_2024-01-31.sh
 ## Outputs paired and unpaired trimmed reads to data/RNA/trimmed/paired and data/RNA/trimmed/unpaired
 
-# Load trimmomatic
+# Load trimmomatic and java
 module load trimmomatic/0.39
+module load oracle_java/jdk1.8.0_181
 
 # Directories for inputs and outputs.  NOTE: MUST END WITH / FOR SHELL SUBSTITUTION BELOW TO WORK
 FASTQ_INDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/input/fastq/
@@ -47,7 +48,7 @@ do
 #  echo "$PAIRED_OUTDIR$sampleName$rightOutSuffix"
 #  echo "$UNPAIRED_OUTDIR$sampleName$rightOutSuffix"
   # Use sample name derived from shell replacement to trim left AND right reads
-  trimmomatic PE \
+  java -jar /shared/centos7/trimmomatic/0.39/trimmomatic-0.39.jar PE \
   -threads 1 -phred33 \
   $FASTQ_INDIR$sampleName$leftInSuffix \
   $FASTQ_INDIR$sampleName$rightInSuffix \
