@@ -17,14 +17,23 @@ unique dual indices (UDI). Sequencing was done on a NovaSeq X Plus, producing pa
 convert (v4.2.4)1. Sequencing statistics are included in the ‘RNA Sequencing Stats.xlsx’ file.
 ```
 
-## QC and trimming
+## QC
 SeqCenter fastq.gz files were verified using md5sum (script `check_md5sums.py`).
 
-gz files were gunzipped.  Resulting fastq files were subjected to QC using fastqc (script `sbatch_fastqc_rnaseq_2024-01-30.sh`).
+gz files were gunzipped.  Resulting fastq files were subjected to QC using FastQC (script `sbatch_fastqc_rnaseq_2024-01-30.sh`).
 Versions:
 `OpenJDK/19.0.1
 fastqc/0.11.9`
 Paired fastq files (R1/R2) were also verified to contain the same number of reads using `wc -l *.fastq`
+
+- Overrepresented sequences from FastQC include: ssrA (tRNA), rplB (L12 large subunit ribosomal protein)
+- ∆pbpG R1 and R2 files both have overrepresented short sequences ending in N that don't map to AB genome
+
+## Trimming
+Adapter trimming was performed by SeqCenter; manual review of FastQC .html files showed no adapter sequences.
+
+Quality trimming and read length filtering were performed using Trimmomatic.
+
 
 - Adapter trimming done by seqcenter
 - Need quality trimming
