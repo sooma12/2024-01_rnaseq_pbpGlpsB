@@ -1,4 +1,4 @@
-FASTQ_INDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/input/fastq
+FASTQ_INDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/input/fastq/
 
 echo $FASTQ_INDIR
 leftInSuffix="_R1_001.fastq"

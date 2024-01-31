@@ -12,9 +12,9 @@
 ## Usage: sbatch sbatch_trimQualityLength_rnaseq_2024-01-31.sh
 ## Outputs paired and unpaired trimmed reads to data/RNA/trimmed/paired and data/RNA/trimmed/unpaired
 
-FASTQ_INDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/input/fastq
-PAIRED_OUTDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/RNA/trimmed/paired
-UNPAIRED_OUTDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/RNA/trimmed/unpaired
+FASTQ_INDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/input/fastq/
+PAIRED_OUTDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/RNA/trimmed/paired/
+UNPAIRED_OUTDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/RNA/trimmed/unpaired/
 
 # path to NU Discovery cluster's Trimmomatic program folder with Illumina adapters
 # PATH_TO_TRIMMOMATIC="/shared/centos7/anaconda3/2021.11/envs/BINF-12-2021/pkgs/trimmomatic-0.39-hdfd78af_2/share/trimmomatic-0.39-2"
@@ -52,12 +52,12 @@ function trimAll {
         sampleName="${pathRemoved/$leftInSuffix/}"
         echo Trimming $sampleName
         # Test with echos; comment this out before final use
-        echo "$FASTQ_INDIR/$sampleName$leftInSuffix"
-        echo "$FASTQ_INDIR/$sampleName$rightInSuffix"
-        echo "$PAIRED_OUTDIR/$sampleName$leftOutSuffix"
-        echo "$UNPAIRED_OUTDIR/$sampleName$leftOutSuffix"
-        echo "$PAIRED_OUTDIR/$sampleName$rightOutSuffix"
-        echo "$UNPAIRED_OUTDIR/$sampleName$rightOutSuffix"
+        echo "$FASTQ_INDIR$sampleName$leftInSuffix"
+        echo "$FASTQ_INDIR$sampleName$rightInSuffix"
+        echo "$PAIRED_OUTDIR$sampleName$leftOutSuffix"
+        echo "$UNPAIRED_OUTDIR$sampleName$leftOutSuffix"
+        echo "$PAIRED_OUTDIR$sampleName$rightOutSuffix"
+        echo "$UNPAIRED_OUTDIR$sampleName$rightOutSuffix"
         # Use sample name derived from shell replacement to trim left AND right reads
 #        trimmomatic PE \
 #        -threads 1 -phred33 \
