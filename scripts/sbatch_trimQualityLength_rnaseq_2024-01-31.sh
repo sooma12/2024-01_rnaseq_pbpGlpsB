@@ -52,12 +52,12 @@ function trimAll {
         sampleName="${pathRemoved/$leftInSuffix/}"
         echo Trimming $sampleName
         # Test with echos; comment this out before final use
-        echo "$FASTQ_INDIR/$sampleName$leftInSuffix" \
-        echo "$FASTQ_INDIR/$sampleName$rightInSuffix" \
-        echo "$PAIRED_OUTDIR/$sampleName$leftOutSuffix" \
-        echo "$UNPAIRED_OUTDIR/$sampleName$leftOutSuffix" \
-        echo "$PAIRED_OUTDIR/$sampleName$rightOutSuffix" \
-        echo "$UNPAIRED_OUTDIR/$sampleName$rightOutSuffix" \
+        echo "$FASTQ_INDIR/$sampleName$leftInSuffix"
+        echo "$FASTQ_INDIR/$sampleName$rightInSuffix"
+        echo "$PAIRED_OUTDIR/$sampleName$leftOutSuffix"
+        echo "$UNPAIRED_OUTDIR/$sampleName$leftOutSuffix"
+        echo "$PAIRED_OUTDIR/$sampleName$rightOutSuffix"
+        echo "$UNPAIRED_OUTDIR/$sampleName$rightOutSuffix"
         # Use sample name derived from shell replacement to trim left AND right reads
 #        trimmomatic PE \
 #        -threads 1 -phred33 \
