@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --partition=short
-#SBATCH --job-name=fastqc_rnaseq_2024-01-30
+#SBATCH --job-name=trimmo_rnaseq_2024-01-30
 #SBATCH --time=02:00:00
 #SBATCH -N 1
 #SBATCH -n 2
@@ -40,22 +40,22 @@ do
   sampleName="${pathRemoved/$leftInSuffix/}"
   echo Trimming $sampleName
   # Test with echos; comment this out before final use
-  echo "$FASTQ_INDIR$sampleName$leftInSuffix"
-  echo "$FASTQ_INDIR$sampleName$rightInSuffix"
-  echo "$PAIRED_OUTDIR$sampleName$leftOutSuffix"
-  echo "$UNPAIRED_OUTDIR$sampleName$leftOutSuffix"
-  echo "$PAIRED_OUTDIR$sampleName$rightOutSuffix"
-  echo "$UNPAIRED_OUTDIR$sampleName$rightOutSuffix"
+#  echo "$FASTQ_INDIR$sampleName$leftInSuffix"
+#  echo "$FASTQ_INDIR$sampleName$rightInSuffix"
+#  echo "$PAIRED_OUTDIR$sampleName$leftOutSuffix"
+#  echo "$UNPAIRED_OUTDIR$sampleName$leftOutSuffix"
+#  echo "$PAIRED_OUTDIR$sampleName$rightOutSuffix"
+#  echo "$UNPAIRED_OUTDIR$sampleName$rightOutSuffix"
   # Use sample name derived from shell replacement to trim left AND right reads
-#  trimmomatic PE \
-#  -threads 1 -phred33 \
-#  $FASTQ_INDIR$sampleName$leftInSuffix \
-#  $FASTQ_INDIR$sampleName$rightInSuffix \
-#  $PAIRED_OUTDIR$sampleName$leftOutSuffix \
-#  $UNPAIRED_OUTDIR$sampleName$leftOutSuffix \
-#  $PAIRED_OUTDIR$sampleName$rightOutSuffix \
-#  $UNPAIRED_OUTDIR$sampleName$rightOutSuffix \
-#  HEADCROP:0 \
-#  LEADING:20 TRAILING:20 SLIDINGWINDOW:4:30 MINLEN:36 \
+  trimmomatic PE \
+  -threads 1 -phred33 \
+  $FASTQ_INDIR$sampleName$leftInSuffix \
+  $FASTQ_INDIR$sampleName$rightInSuffix \
+  $PAIRED_OUTDIR$sampleName$leftOutSuffix \
+  $UNPAIRED_OUTDIR$sampleName$leftOutSuffix \
+  $PAIRED_OUTDIR$sampleName$rightOutSuffix \
+  $UNPAIRED_OUTDIR$sampleName$rightOutSuffix \
+  HEADCROP:0 \
+  LEADING:20 TRAILING:20 SLIDINGWINDOW:4:30 MINLEN:36 \
   # ILLUMINACLIP:$PATH_TO_TRIMMOMATIC/adapters/TruSeq3-PE.fa:2:30:10 \
 done
