@@ -33,32 +33,41 @@ Paired fastq files (R1/R2) were also verified to contain the same number of read
 Adapter trimming was performed by SeqCenter; manual review of FastQC .html files showed no adapter sequences.
 
 Quality trimming and read length filtering were performed using Trimmomatic.
+First attempt (script `sbatch_trimQualityLength_rnaseq_2024-01-31.sh`) ran Trimmomatic using the following settings:
+- PE (paired end data)
+- `-phred33` specifies the PHRED quality encoding in the input FASTQ files
+- `HEADCROP:0` indicates not to trim any bases from start of reads; unnecessary as reads are not multiplexed and were previously adapter-clipped.
+- `LEADING:20` and `TRAILING:20` indicates the minimum quality to keep at the start and end of each read.
+- `SLIDINGWINDOW:4:30` specifies the values to use in the sliding window for trimming.  These values will cause Trimmomatic to scan a sliding window of 4 bp and clip when the average quality in that 4-bp window is below 30.
+- `MINLEN:36` sets the minimum read length to 36; shorter reads are discarded.
+
+*NOTE: In my first run on 1/31/2024, these trimming parameters resulted in loss of ~15-20% of reads.*
+*NOTE2: Can also consider Cutadapt, which was used by TvO lab in one of Eddie's papers*
+
+## Reference Genome
+Genome files were downloaded from NCBI Nucleotide using the following command on 1/31/2024:
+wget -O <output filename> "<NCBI file URL>"  # Note the "" surrounding the URL!!
+
+The following urls were used to download the fasta and gff3 files for the 17978-mff chromosomes and plasmids pAB1-3:
+17978-mff chromosome:
+NZ_CP012004.gff3 "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?db=nuccore&report=gff3&id=NZ_CP012004.1"
+NZ_CP012004.fasta "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?db=nuccore&report=fasta&id=NZ_CP012004.1"
+17978-mff pAB3:
+NZ_CP012005.gff3 "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?db=nuccore&report=gff3&id=NZ_CP012005.1"
+NZ_CP012005.fasta "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?db=nuccore&report=fasta&id=NZ_CP012005.1"
+
+pAB1 and pAB2 files below were used in EG's EGA83 reference, which I used in my Breseq in Oct 2023:
+pAB1:
+CP000522.gff3 "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?db=nuccore&report=gff3&id=CP000522.1"
+CP000522.fasta "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?db=nuccore&report=fasta&id=CP000522.1"
+pAB2:
+CP000523.gff3 "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?db=nuccore&report=gff3&id=CP000523.1"
+CP000523.fasta "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?db=nuccore&report=fasta&id=CP000523.1"
+
+Files are stored in `/work/geisingerlab/Mark/REF_GENOMES/17978-mff`.
 
 
-```text
-From class:
-`trimRNA.sh`
 
-This script runs Trimmomatic with the following settings (identical to `trimDNA.sh` above):
+## Alignment
+Note, try the next few steps both with quality/length-trimmed data AND with untrimmed data!
 
-`PE` indicates to Trimmomatic that paired-end reads are being provided
-
-`-threads 1` specifies to use one server thread
-
-`-phred33` specifies the PHRED quality encoding in the input FASTQ files
-
-`HEADCROP:0` tells the program not to crop bases from the start of every read.  This should be unnecessary as the input data will have their adapter sequences clipped, and these reads were not multiplexed.
-
-`ILLUMINACLIP` indicates the location in the `PATH_TO_TRIMMOMATIC` directory where Illumina adapter sequences are found; the provided value will work for the Northeastern Discovery cluster.
-
-`LEADING:20` and `TRAILING:20` indicates the minimum quality to keep at the start and end of each read.
-
-`SLIDINGWINDOW:4:30` specifies the values to use in the sliding window for trimming.  These values will cause Trimmomatic to scan a sliding window of 4 bp and clip when the average quality in that 4-bp window is below 30.
-
-`MINLEN:36` sets the minimum read length to 36; shorter reads are discarded.
-
-```
-
-- Adapter trimming done by seqcenter
-- Need quality trimming
-- Filter out short reads?

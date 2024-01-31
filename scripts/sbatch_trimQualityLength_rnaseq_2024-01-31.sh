@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --partition=short
-#SBATCH --job-name=trimmo_rnaseq_2024-01-30
+#SBATCH --job-name=trimmo_rnaseq_2024-01-31
 #SBATCH --time=02:00:00
 #SBATCH -N 1
 #SBATCH -n 2
@@ -27,8 +27,8 @@ UNPAIRED_OUTDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/RNA/
 ## Initialize variables to contain file suffixes and output paths
 leftInSuffix="_R1_001.fastq"
 rightInSuffix="_R2_001.fastq"
-leftOutSuffix="_trimmed_R1_fastq"
-rightOutSuffix="_trimmed_R2_fastq"
+leftOutSuffix="_trimmed_R1.fastq"
+rightOutSuffix="_trimmed_R2.fastq"
 
 mkdir -p $PAIRED_OUTDIR $UNPAIRED_OUTDIR
 
