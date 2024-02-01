@@ -32,4 +32,3 @@ STAR --runMode genomeGenerate \
 --genomeSAindexNbases 9 \
 --runThreadN $NTHREADS
 # --sjdbGTFtagExonParentTranscript Parent
-

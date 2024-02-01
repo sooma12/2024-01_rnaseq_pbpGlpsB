@@ -45,6 +45,8 @@ First attempt (script `sbatch_trimQualityLength_rnaseq_2024-01-31.sh`) ran Trimm
 *NOTE2: Can also consider Cutadapt, which was used by TvO lab in one of Eddie's papers*
 
 ## Reference Genome
+
+### Genome files
 Genome files were downloaded from NCBI Nucleotide using the following command on 1/31/2024:
 wget -O <output filename> "<NCBI file URL>"  # Note the "" surrounding the URL!!
 
@@ -66,7 +68,8 @@ CP000523.fasta "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?db=nuccore&repor
 
 Files are stored in `/work/geisingerlab/Mark/REF_GENOMES/17978-mff`.
 
-gffread was used to convert the gff3 file to gtf.
+### Formatting genome files for STAR.genomeGenerate
+gffread was used to convert the NZ_CP012004.gff3 file to gtf.
 https://github.com/gpertea/gffread
 
 gffread installation (to /work/geisingerlab/Mark/software/gffread): 
@@ -86,7 +89,19 @@ https://hpc.ncsu.edu/Documents/user_modules.php
 A gtf file can be generated using: 
 `gffread  REF_GENOMES/17978-mff/NZ_CP012004.gff3 -T -o REF_GENOMES/17978-mff/NZ_CP012004.gtf`
 
+The GTF file's third column contains "transcript" and "CDS" information, but STAR relies on the third column containing "exon".
+We want the information in "transcript" to replace "exon" for STAR.
+Two ways to do this: 
+1. Add the flag `--sjdbGTFfeatureExon transcript` to STAR command
+2. Or, convert "transcript" to "exon".
+I did the latter.  Used custom script `gff3_colThree_to_exon.py` with the following command:
+`python gff3_colThree_to_exon.py /work/geisingerlab/Mark/REF_GENOMES/17978-mff/NZ_CP012004.gtf /work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/ref/NZ_CP012004_transcript2exon.gtf transcript`
+
+Finally, STAR's genomeGenerate was run using the commands in `sbatch_starGenomeGenerate_GTF_2024-02-01.sh`
+
+STAR genomeGenerate output is found in `ref/`.
 
 ## Alignment
 Note, try the next few steps both with quality/length-trimmed data AND with untrimmed data!
+
 
