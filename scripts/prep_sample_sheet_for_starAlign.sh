@@ -1,7 +1,8 @@
 # prep_sample_sheet_for_starAlign.sh
 # Makes a sample_sheet.txt containing sample ID and R1 and R2 filepaths
-# Example line:  WT_1 /path/to/WT_1_R1.fastq /path/to/WT_1_R2.fastq
-#
+# Example output line:  WT_1 /path/to/WT_1_R1.fastq /path/to/WT_1_R2.fastq
+
+## IMPORTANT: CHANGE FASTQ_DIR IN BOTH THIS SCRIPT AND IN ALIGNRNA SBATCH SCRIPT!
 
 FASTQ_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/input/fastq
 SAMPLE_SHEET=${FASTQ_DIR}/sample_sheet.txt
