@@ -15,8 +15,8 @@ module load star/2.7.11a
 
 # Variables
 GENOME_REF_DIR_OUT=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/ref/
-FASTA_IN=/work/geisingerlab/Mark/REF_GENOMES/17978-mff/NZ_CP012004.fasta
-GTF_IN=/work/geisingerlab/Mark/REF_GENOMES/17978-mff/NZ_CP012004.gff3
+# FASTA_IN=/work/geisingerlab/Mark/REF_GENOMES/17978-mff/NZ_CP012004.fasta
+# GTF_IN=/work/geisingerlab/Mark/REF_GENOMES/17978-mff/NZ_CP012004.gff3
 NTHREADS=4
 
 # STAR requires the output directory be pre-made
