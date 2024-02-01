@@ -3,4 +3,6 @@
 *.fastq
 slurm_logs/*
 fastqc_output_pretrim/fastqc_zip/*
-
+input/*
+ref/*
+data/*

@@ -38,7 +38,7 @@ r2=$(sed -n "$SLURM_ARRAY_TASK_ID"p $SAMPLE_SHEET |  awk '{print $3}')
 echo "Running STAR on files $r1 and $r2"
 
 # STAR time
-STAR --runMode alignReads \
+echo STAR --runMode alignReads \
 --genomeDir $GENOME_DIR \
 --outSAMtype BAM SortedByCoordinate \
 --readFilesIn $r1 $r2 \
