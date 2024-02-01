@@ -66,6 +66,24 @@ CP000523.fasta "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?db=nuccore&repor
 
 Files are stored in `/work/geisingerlab/Mark/REF_GENOMES/17978-mff`.
 
+gffread was used to convert the gff3 file to gtf.
+https://github.com/gpertea/gffread
+
+gffread installation (to /work/geisingerlab/Mark/software/gffread): 
+```bash
+cd /work/geisingerlab/Mark/software/gffread
+git clone https://github.com/gpertea/gffread
+cd gffread
+make release
+```
+
+This makes a binary file /work/geisingerlab/Mark/software/gffread/gffread.
+Then I followed these guides to make gffread a module available to me:
+https://researchcomputing.princeton.edu/support/knowledge-base/custom-modules
+https://hpc.ncsu.edu/Documents/user_modules.php
+(made changes to .bashrc for user-installed modules, and added module files in /work/geisingerlab/Mark/software/modulefiles/gffread)
+
+A gtf file can be generated using: gffread  ../../../REF_GENOMES/17978-mff/NZ_CP012004.gff3 -T -o ../../../REF_GENOMES/17978-mff/NZ_CP012004.gtf
 
 
 ## Alignment
