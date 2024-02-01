@@ -83,7 +83,8 @@ https://researchcomputing.princeton.edu/support/knowledge-base/custom-modules
 https://hpc.ncsu.edu/Documents/user_modules.php
 (made changes to .bashrc for user-installed modules, and added module files in /work/geisingerlab/Mark/software/modulefiles/gffread)
 
-A gtf file can be generated using: gffread  ../../../REF_GENOMES/17978-mff/NZ_CP012004.gff3 -T -o ../../../REF_GENOMES/17978-mff/NZ_CP012004.gtf
+A gtf file can be generated using: 
+`gffread  REF_GENOMES/17978-mff/NZ_CP012004.gff3 -T -o REF_GENOMES/17978-mff/NZ_CP012004.gtf`
 
 
 ## Alignment
