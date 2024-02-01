@@ -43,8 +43,8 @@ fi
 
 paste R1.list R2.list | while read R1 R2 ;
 do
-    outdir_root=$(echo "${R2}" | cut -f9 -d"/" | cut -f1,2 -d"_") ;
-    sample_line="${outdir_root} ${R1} ${R2}" ;
+    outdir_root=$(echo "${R2}" | cut -f9 -d"/" | cut -f1,2 -d"_")
+    sample_line="${outdir_root} ${R1} ${R2}"
     echo "${sample_line}" >> $SAMPLE_SHEET
 done
 
@@ -63,8 +63,3 @@ STAR --runMode alignReads \
 --runThreadN 4 \
 --outFileNamePrefix ${OUT_DIR}/mapped/${name}
 
-echo "cleaning up"
-rm R1.list R2.list
-
-echo "sample sheet found at"
-echo $SAMPLE_SHEET
