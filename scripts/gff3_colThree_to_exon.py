@@ -23,6 +23,7 @@ with open(GFF_FILE_IN, 'r') as infile, open(GFF_EXON_FILE_OUT, 'w') as outfile:
         #         TODO_temp_coldict[item] = 1
         new_line = split_line
         if new_line[0] == 'NZ_CP012004.1':
-            new_line[2] = 'exon'
+            if new_line[2] != 'region':
+                new_line[2] = 'exon'
         line_to_write = '\t'.join(new_line)
         outfile.write(f'{line_to_write}\n')
