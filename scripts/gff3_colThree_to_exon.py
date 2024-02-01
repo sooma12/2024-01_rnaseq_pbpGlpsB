@@ -1,6 +1,7 @@
 # gff3_colThree_to_exon.py
 """
-Change cds/gene to exon in gff3 genome file for STAR genomeGenerate
+Change cds ONLY to exon in gff3 genome file for STAR genomeGenerate
+
 gff3 file has the following terms in the 3rd column (index 2):
 {'region': 1, 'gene': 3628, 'CDS': 3591, 'rRNA': 18, 'exon': 94, 'tRNA': 72,
 'pseudogene': 55, 'sequence_feature': 1, 'riboswitch': 7, 'SRP_RNA': 1,
@@ -23,7 +24,7 @@ with open(GFF_FILE_IN, 'r') as infile, open(GFF_EXON_FILE_OUT, 'w') as outfile:
         #         TODO_temp_coldict[item] = 1
         new_line = split_line
         if new_line[0] == 'NZ_CP012004.1':
-            if new_line[2] != 'region':
+            if new_line[2] == 'cds':
                 new_line[2] = 'exon'
         line_to_write = '\t'.join(new_line)
         outfile.write(f'{line_to_write}\n')
