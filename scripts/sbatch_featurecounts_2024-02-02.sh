@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --partition=short
-#SBATCH --job-name=subreadFeatureCounts_2024-02-02
+#SBATCH --job-name=featureCounts_2024-02-02
 #SBATCH --time=02:00:00
 #SBATCH -N 1
 #SBATCH -n 4
