@@ -17,14 +17,12 @@ STAR_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/mapped
 
 echo "Loading environment and tools"
 module load subread/2.0.6
-module list
 
 mkdir -p $OUT_DIR
 
 # Run featureCounts on all BAM files from STAR
 echo featureCounts \
 -a $GTF_REF \
--f GTF \
 -o $OUT_DIR \
 -p \
 --countReadPairs \
