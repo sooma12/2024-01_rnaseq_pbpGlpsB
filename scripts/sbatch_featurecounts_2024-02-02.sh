@@ -16,9 +16,7 @@ GTF_REF=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/ref/NZ_CP012004_t
 STAR_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/mapped
 
 echo "Loading environment and tools"
-module load anaconda3/2021.05
-eval "$(conda shell.bash hook)"
-conda activate /work/geisingerlab/conda_env/subread
+module load subread/2.0.6
 
 mkdir -p $OUT_DIR
 
