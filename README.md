@@ -1,6 +1,9 @@
 # 2024-01_rnaseq_pbpGlpsB
 Scripts and records for RNA-seq comparisons of WT vs. ∆pbpG vs. ∆lpsB in A. baumannii 17978
 
+## Pipeline Summary
+TODO!
+
 ## Sample preparation and processing
 Followed RNA isolation, reverse transcription, and qPCR protocol to isolate RNA.
 Protocol document (followed up to step 22): https://docs.google.com/document/d/1iIDJtlX0jUI4P77D0M6SsOHyaJRPXctn8PhxoLuhKHk/edit
@@ -42,6 +45,8 @@ First attempt (script `sbatch_trimQualityLength_rnaseq_2024-01-31.sh`) ran Trimm
 - `MINLEN:36` sets the minimum read length to 36; shorter reads are discarded.
 
 *NOTE: In my first run on 1/31/2024, these trimming parameters resulted in loss of ~15-20% of reads.*
+*Double check phred encoding*
+*Consider reducing SLIDINGWINDOW:4:x's trimming quality minimum*
 *NOTE2: Can also consider Cutadapt, which was used by TvO lab in one of Eddie's papers*
 
 ## Reference Genome
@@ -125,9 +130,15 @@ STAR --runMode alignReads \
 Outputs are files ending in `Aligned.sortedByCoord.out.bam` in `/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/mapped`
 
 ## featureCounts
-Install subread package, which contains featureCounts.  I used Conda:
+featureCounts from subread/2.0.6 was used to generate a count table.
+All 9 .bam files were analyzed using `-p --countReadPairs` to specify paired-end sequencing
+
+## Differential expression analysis
+Before DE analysis, need to re-label columns in the featureCounts output and generate a metadata file for DESeq2.
 
 
+
+An RStudio Rocker Container on Northeastern University's Discovery cluster was used for differential expression (via Open OnDemand).
 
 
 
