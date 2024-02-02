@@ -21,7 +21,7 @@ module load subread/2.0.6
 mkdir -p $OUT_DIR
 
 # Run featureCounts on all BAM files from STAR
-echo featureCounts \
+featureCounts \
 -a $GTF_REF \
 -o $OUT_DIR \
 -p \
