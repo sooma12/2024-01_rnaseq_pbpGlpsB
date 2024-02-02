@@ -104,4 +104,30 @@ STAR genomeGenerate output is found in `ref/`.
 ## Alignment
 Note, try the next few steps both with quality/length-trimmed data AND with untrimmed data!
 
+FIRST ATTEMPT: used non-Trimmomatic-trimmed reads.
+1. First, generate sample sheet using `prep_sample_sheet_for_starAlign.sh` containing `FASTQ_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/input/fastq`
+2. Run STAR alignReads using `sbatch_starAlignRNA_2024-02-01.sh`:
+STAR arguments:
+
+```bash
+STAR --runMode alignReads \
+--genomeDir $GENOME_DIR \
+--outSAMtype BAM SortedByCoordinate \
+--readFilesIn $r1 $r2 \
+--runThreadN 4 \
+--alignIntronMax 1 \
+--limitBAMsortRAM 5000000000 \
+--outFileNamePrefix ${OUT_DIR}/mapped/${name}
+```
+`alignIntronMax 1` disallows introns
+`--limitBAMsortRAM` was needed to deal with memory-intensive BAM sorting
+
+Outputs are files ending in `Aligned.sortedByCoord.out.bam` in `/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/mapped`
+
+## featureCounts
+Install subread package, which contains featureCounts.  I used Conda:
+
+
+
+
 

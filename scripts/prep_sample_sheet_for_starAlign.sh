@@ -4,7 +4,9 @@
 
 ## IMPORTANT: CHANGE FASTQ_DIR IN BOTH THIS SCRIPT AND IN ALIGNRNA SBATCH SCRIPT!
 
-FASTQ_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/input/fastq
+# untrimmed data here:
+#FASTQ_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/input/fastq
+
 SAMPLE_SHEET=${FASTQ_DIR}/sample_sheet.txt
 
 # Create .list files with R1 and R2 fastqs.  Sort will put them in same orders, assuming files are paired
