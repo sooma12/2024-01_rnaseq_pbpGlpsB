@@ -134,11 +134,7 @@ featureCounts from subread/2.0.6 was used to generate a count table.
 All 9 .bam files were analyzed using `-p --countReadPairs` to specify paired-end sequencing
 
 ## Differential expression analysis
-Before DE analysis, need to re-label columns in the featureCounts output and generate a metadata file for DESeq2.
-
-
-
 An RStudio Rocker Container on Northeastern University's Discovery cluster was used for differential expression (via Open OnDemand).
 
-
+WRITE ME MORE!!
 
