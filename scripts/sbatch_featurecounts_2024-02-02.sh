@@ -23,7 +23,7 @@ mkdir -p $OUT_DIR
 # Run featureCounts on all BAM files from STAR
 featureCounts \
 -a $GTF_REF \
--o $OUT_DIR \
+-o $OUT_DIR/counts.txt \
 -p \
 --countReadPairs \
 $STAR_DIR/*.bam
