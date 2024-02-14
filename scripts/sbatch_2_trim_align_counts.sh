@@ -6,6 +6,8 @@
 #SBATCH --ntasks=9
 #SBATCH --mem=100G
 #SBATCH --cpus-per-task=1
+#SBATCH --output=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/slurm_logs/%x-%j.log
+#SBATCH --error=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/slurm_logs/%x-%j.err
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=soo.m@northeastern.edu
 
