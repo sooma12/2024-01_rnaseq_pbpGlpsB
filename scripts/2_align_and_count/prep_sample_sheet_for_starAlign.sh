@@ -1,17 +1,13 @@
 # prep_sample_sheet_for_starAlign.sh
 # Makes a sample_sheet.txt containing sample ID and R1 and R2 filepaths
 # Example output line:  WT_1 /path/to/WT_1_R1.fastq /path/to/WT_1_R2.fastq
+# Usage: bash prep_sample_sheet_for_starAlign.sh <path/to/fastqs> <path/to/samplesheet>
 
-## IMPORTANT: CHANGE FASTQ_DIR IN BOTH THIS SCRIPT AND IN ALIGNRNA SBATCH SCRIPT!
-
-# untrimmed data here:
-#FASTQ_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/input/fastq
-
-SAMPLE_SHEET=${FASTQ_DIR}/sample_sheet.txt
+SAMPLE_SHEET=${2}
 
 # Create .list files with R1 and R2 fastqs.  Sort will put them in same orders, assuming files are paired
-find $FASTQ_DIR -maxdepth 1 -name "*.fastq" | grep -e "_R1" | sort > R1.list
-find $FASTQ_DIR -maxdepth 1 -name "*.fastq" | grep -e "_R2" | sort > R2.list
+find ${1} -maxdepth 1 -name "*.fastq" | grep -e "_R1" | sort > R1.list
+find ${1} -maxdepth 1 -name "*.fastq" | grep -e "_R2" | sort > R2.list
 
 if [ -f "${SAMPLE_SHEET}" ] ; then
   rm "${SAMPLE_SHEET}"
@@ -23,6 +19,8 @@ fi
 
 paste R1.list R2.list | while read R1 R2 ;
 do
+    echo $R1  # TODO REMOVE
+    echo $R2  # TODO REMOVE
     outdir_root=$(echo "${R2}" | cut -f9 -d"/" | cut -f1,2 -d"_")
     sample_line="${outdir_root} ${R1} ${R2}"
     echo "${sample_line}" >> $SAMPLE_SHEET
