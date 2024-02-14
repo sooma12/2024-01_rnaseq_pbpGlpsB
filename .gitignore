@@ -6,3 +6,4 @@ fastqc_output_pretrim/fastqc_zip/*
 input/*
 ref/*
 data/*
+software/*
