@@ -14,7 +14,7 @@
 # usage:  `sbatch sbatch_2_trim_align_counts.sh
 # gunzipped fastq input data should be in $FASTQ_INDIR.  Don't pass .gz files!
 
-WORK_DIR=/Users/mws/Documents/geisinger_lab_research/bioinformatics_in_acinetobacter/rnaSeq/2024-01_rnaseq_pbpGlpsB
+WORK_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB
 LOG_DIR=${WORK_DIR}/slurm_logs/$SLURM_JOB_ID
 
 echo "Starting analysis - $(date)"
