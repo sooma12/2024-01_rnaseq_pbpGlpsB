@@ -2,12 +2,14 @@
 # Calls scripts to run Trimmomatic, STAR/alignRNA, and subread/featureCounts through SBATCH
 # Usage: request a compute node with srun or my ~/request_compute_node.sh script
 # FROM WORK_DIR (below): `bash scripts/pipeline_2_trim_align_counts.sh &`
+# TODO FOR FINAL USAGE `bash scripts/pipeline_2_trim_align_counts.sh 1>./slurm_logs/last.log 2>./slurm_logs/last.err &`
 # gunzipped fastq input data should be in $FASTQ_INDIR.  Don't pass .gz files!
 
 WORK_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB
 CUR_DATE="$(date '+%Y-%m-%d_%H-%M')"
 ## TODO Remove "temp" from the paths below.  Just doing this for simplicity.  rm -r ./slurm_logs/temp
 LOG_DIR=${WORK_DIR}/slurm_logs/temp/${CUR_DATE}
+mkdir -p $LOG_DIR
 MAIN_LOG_FILE=${WORK_DIR}/slurm_logs/temp/logfile_${CUR_DATE}.log
 touch $MAIN_LOG_FILE
 
@@ -38,7 +40,7 @@ sbatch --partition=short --job-name=trim_rnaseq --time=02:00:00 -N 1 -n 2 \
 echo "trimming complete; outputs saved to ${PAIRED_OUTDIR} and ${UNPAIRED_OUTDIR}" >>$MAIN_LOG_FILE
 echo
 echo
-exit  ## TODO REMOVE
+
 
 echo "Preparing sample sheet with paired files" >>$MAIN_LOG_FILE
 ## TODO not live version yet.  Echoes.
@@ -49,6 +51,7 @@ echo "Sample sheet contents:"
 echo "$(cat $SAMPLE_SHEET)" >>$MAIN_LOG_FILE
 echo
 echo
+exit  ## TODO REMOVE
 
 ## TODO another option for STAR alignment... could run sequentially on each line of SAMPLE_SHEET.
 ## Do some variable substitution to get the length of SAMPLE SHEET with wc -l <file> | awk '{print $1}'
@@ -71,6 +74,7 @@ sbatch --partition short --job-name STARalignRNA --time 04:00:00 \
 echo "mapped .bam files saved to ${ALIGNED_BAM_DIR}/mapped/<sample_name>" >>$MAIN_LOG_FILE
 echo
 echo
+
 
 echo "Generating counts table - $(date '+%Y-%m-%d %H:%M:%S')" >>$MAIN_LOG_FILE
 echo "Loading subread package" >>$MAIN_LOG_FILE

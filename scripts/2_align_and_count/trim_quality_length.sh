@@ -4,6 +4,7 @@
 # MWS Feb. 14th, 2024
 # Usage: bash trim_quality_length.sh <path/to/fastq/inputs> <path/to/output/pairedfiles> <path/to/output/unpairedfiles>
 
+# adapter trimming is done by seqcenter; the following is unnecessary but kept for future use.
 # path to NU Discovery cluster's Trimmomatic program folder with Illumina adapters
 # PATH_TO_TRIMMOMATIC="/shared/centos7/anaconda3/2021.11/envs/BINF-12-2021/pkgs/trimmomatic-0.39-hdfd78af_2/share/trimmomatic-0.39-2"
 
