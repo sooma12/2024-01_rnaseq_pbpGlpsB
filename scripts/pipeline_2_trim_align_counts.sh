@@ -26,9 +26,9 @@ echo "Loading trimmomatic" >>$MAIN_LOG_FILE
 module load trimmomatic/0.39
 module load oracle_java/jdk1.8.0_181
 echo "Running trimmomatic script" >>$MAIN_LOG_FILE
-FASTQ_INDIR=$WORK_DIR/input/fastq/
-PAIRED_OUTDIR=$WORK_DIR/data/RNA/trimmed/paired/
-UNPAIRED_OUTDIR=$WORK_DIR/data/RNA/trimmed/unpaired/
+FASTQ_INDIR=$WORK_DIR/input/fastq
+PAIRED_OUTDIR=$WORK_DIR/data/RNA/trimmed/paired
+UNPAIRED_OUTDIR=$WORK_DIR/data/RNA/trimmed/unpaired
 mkdir -p $PAIRED_OUTDIR $UNPAIRED_OUTDIR
 sbatch --partition=short --job-name=trim_rnaseq --time=02:00:00 -N 1 -n 2 \
 --mail-type END --mail-user soo.m@northeastern.edu \
@@ -81,7 +81,7 @@ mkdir -p ${FEATURECOUNTS_OUT_DIR}
 sbatch --partition short --job-name featureCounts --time 02:00:00 -N 1 -n 4 \
 --mail-type END --mail-user soo.m@northeastern.edu \
 --output=$LOG_DIR/%x-%j.log --error=$LOG_DIR/%x-%j.err \
-./scripts/featurecounts_get_count_table.sh $FEATURECOUNTS_OUT_DIR $GTF_REF $ALIGNED_BAM_DIR
+./scripts/2_align_and_count/featurecounts_get_count_table.sh $FEATURECOUNTS_OUT_DIR $GTF_REF $ALIGNED_BAM_DIR
 echo "featureCounts output saved to ${FEATURECOUNTS_OUT_DIR}" >>$MAIN_LOG_FILE
 echo
 echo
