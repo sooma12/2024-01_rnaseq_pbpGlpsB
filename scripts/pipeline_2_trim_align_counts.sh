@@ -1,24 +1,22 @@
 # pipeline_2_trim_align_counts.sh
 # Calls scripts to run Trimmomatic, STAR/alignRNA, and subread/featureCounts through SBATCH
-# usage: `bash pipeline_2_trim_align_counts.sh`
+# Usage FROM WORK_DIR (below): `bash scripts/pipeline_2_trim_align_counts.sh`
 # gunzipped fastq input data should be in $FASTQ_INDIR.  Don't pass .gz files!
 
 srun --partition=short --pty --export=ALL --nodes=1 --ntasks=1 --mem=10Gb --time=08:00:00 /bin/bash
 
 WORK_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB
-CUR_DATE="$(date '+%Y-%m-%d-%H:%M')"
+CUR_DATE="$(date '+%Y-%m-%d_%H-%M')"
 LOG_DIR=${WORK_DIR}/slurm_logs/${CUR_DATE}
 MAIN_LOG_FILE=${WORK_DIR}/slurm_logs/${CUR_DATE}.log
 touch $MAIN_LOG_FILE
 
 echo "Starting analysis - $(date '+%Y-%m-%d %H:%M:%S')" >>$MAIN_LOG_FILE
 
-echo "Setting working directory: $WORK_DIR" >>$MAIN_LOG_FILE
-cd $WORK_DIR || exit
 echo "Making directory for log files." >>$MAIN_LOG_FILE
 mkdir -p $LOG_DIR
 echo "Logs will be stored in $LOG_DIR" >>$MAIN_LOG_FILE
-
+exit  ## TODO REMOVE
 echo "Trimming fastq data - $(date '+%Y-%m-%d %H:%M:%S')" >>$MAIN_LOG_FILE
 echo "Loading trimmomatic" >>$MAIN_LOG_FILE
 module load trimmomatic/0.39
