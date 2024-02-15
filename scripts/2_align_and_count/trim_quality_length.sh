@@ -1,3 +1,4 @@
+#!/bin/bash
 # trim_quality_length.sh
 # Run trimmomatic on RNA-seq fastq files
 # MWS Feb. 14th, 2024

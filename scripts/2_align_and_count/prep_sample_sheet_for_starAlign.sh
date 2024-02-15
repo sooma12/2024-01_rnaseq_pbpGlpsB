@@ -1,3 +1,4 @@
+#!/bin/bash
 # prep_sample_sheet_for_starAlign.sh
 # Makes a sample_sheet.txt containing sample ID and R1 and R2 filepaths
 # Example output line:  WT_1 /path/to/WT_1_R1.fastq /path/to/WT_1_R2.fastq

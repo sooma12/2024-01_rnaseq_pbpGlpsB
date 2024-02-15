@@ -11,7 +11,7 @@
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=soo.m@northeastern.edu
 
-# usage:  `sbatch sbatch_2_trim_align_counts.sh
+# usage:  `sbatch pipeline_2_trim_align_counts.sh
 # gunzipped fastq input data should be in $FASTQ_INDIR.  Don't pass .gz files!
 
 WORK_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB

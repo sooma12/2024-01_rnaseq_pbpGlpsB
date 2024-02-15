@@ -1,5 +1,6 @@
+#!/bin/bash
 # star_align_rna.sh
-
+# Run STAR alignReads to align FASTQ RNA sequences to reference genome
 # Usage: bash star_align_rna.sh <path/to/reference/genome> <path/to/output/dir> <path/to/fastq/inputs> <path/to/sample/sheet>
 
 # Variables

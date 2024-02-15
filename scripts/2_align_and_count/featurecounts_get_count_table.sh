@@ -1,4 +1,6 @@
+#!/bin/bash
 # featurecounts_get_count_table.sh
+# Run featurecounts to generate a count table from RNA-seq BAM files (genome-aligned)
 # Usage: bash featurecounts_get_count_table.sh <path/to/output> <path/to/reference.gtf> <path/to/STAR/bams>
 
 OUT_DIR=${1}
