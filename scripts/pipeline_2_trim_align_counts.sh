@@ -70,7 +70,7 @@ sbatch --partition short --job-name STARalignRNA --time 04:00:00 \
 --array=1-9%10 --ntasks=9 --mem=100G --cpus-per-task=1 \
 --mail-type END --mail-user soo.m@northeastern.edu \
 --output=$LOG_DIR/%x-%j.log --error=$LOG_DIR/%x-%j.err \
-./scripts/star_align_rna.sh $GENOME_DIR $ALIGNED_BAM_DIR $PAIRED_OUTDIR $SAMPLE_SHEET
+./scripts/2_align_and_count/star_align_rna.sh $GENOME_DIR $ALIGNED_BAM_DIR $PAIRED_OUTDIR $SAMPLE_SHEET
 echo "mapped .bam files saved to ${ALIGNED_BAM_DIR}/mapped/<sample_name>" >>$MAIN_LOG_FILE
 echo
 echo
