@@ -1,13 +1,12 @@
 #!/bin/bash
 # star_align_rna.sh
 # Run STAR alignReads to align FASTQ RNA sequences to reference genome
-# Usage: bash star_align_rna.sh <path/to/reference/genome> <path/to/output/dir> <path/to/fastq/inputs> <path/to/sample/sheet>
+# Usage: bash star_align_rna.sh <path/to/reference/genome> <path/to/output/dir> <path/to/sample/sheet>
 
 # Variables
 GENOME_DIR=${1}
 OUT_DIR=${2}
-FASTQ_DIR=${3}
-SAMPLE_SHEET=${4}
+SAMPLE_SHEET=${3}
 
 mkdir -p $OUT_DIR
 
@@ -26,7 +25,7 @@ echo "Running STAR on files $r1 and $r2"
 # note alignIntronMax=1 to disallow introns for bacteria
 # BAM sorting seems to be memory intensive.  Set an available amount of memory using limitBAMsortRAM
 # TODO REMOVE ECHO!
-echo STAR --runMode alignReads \
+STAR --runMode alignReads \
 --genomeDir $GENOME_DIR \
 --outSAMtype BAM SortedByCoordinate \
 --readFilesIn $r1 $r2 \

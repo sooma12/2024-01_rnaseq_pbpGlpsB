@@ -1,7 +1,7 @@
 #!/bin/bash
 # trim_quality_length.sh
 # Run trimmomatic on RNA-seq fastq files
-# MWS Feb. 14th, 2024
+# MWS Feb. 15th, 2024
 # Usage: bash trim_quality_length.sh <path/to/fastq/inputs> <path/to/output/pairedfiles> <path/to/output/unpairedfiles>
 
 # adapter trimming is done by seqcenter; the following is unnecessary but kept for future use.
@@ -48,8 +48,7 @@ do
 #  echo "$PAIRED_OUTDIR$sampleName$rightOutSuffix"
 #  echo "$UNPAIRED_OUTDIR$sampleName$rightOutSuffix"
   # Use sample name derived from shell replacement to trim left AND right reads
-  # TODO: REMOVE ECHO BEFORE RUNNING FOR REAL
-  echo java -jar /shared/centos7/trimmomatic/0.39/trimmomatic-0.39.jar PE \
+  java -jar /shared/centos7/trimmomatic/0.39/trimmomatic-0.39.jar PE \
   -threads 1 -phred33 \
   $FASTQ_INDIR$sampleName$leftInSuffix \
   $FASTQ_INDIR$sampleName$rightInSuffix \

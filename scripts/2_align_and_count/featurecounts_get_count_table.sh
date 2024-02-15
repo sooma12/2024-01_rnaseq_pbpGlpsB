@@ -8,8 +8,7 @@ GTF_REF=${2}
 STAR_DIR=${3}
 
 # Run featureCounts on all BAM files from STAR
-# TODO REMOVE ECHO!
-echo featureCounts \
+featureCounts \
 -a $GTF_REF \
 -o $OUT_DIR/counts.txt \
 -p \
