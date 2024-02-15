@@ -1,6 +1,7 @@
 # pipeline_2_trim_align_counts.sh
 # Calls scripts to run Trimmomatic, STAR/alignRNA, and subread/featureCounts through SBATCH
-# Usage FROM WORK_DIR (below): `bash scripts/pipeline_2_trim_align_counts.sh`
+# Usage: request a compute node with srun or my ~/request_compute_node.sh script
+# FROM WORK_DIR (below): `bash scripts/pipeline_2_trim_align_counts.sh &`
 # gunzipped fastq input data should be in $FASTQ_INDIR.  Don't pass .gz files!
 
 WORK_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB
@@ -10,10 +11,14 @@ MAIN_LOG_FILE=${WORK_DIR}/slurm_logs/logfile_${CUR_DATE}.log
 touch $MAIN_LOG_FILE
 
 echo "Starting analysis - $(date '+%Y-%m-%d %H:%M:%S')" >>$MAIN_LOG_FILE
+echo
+echo
 
 echo "Making directory for log files." >>$MAIN_LOG_FILE
 mkdir -p $LOG_DIR
 echo "Logs will be stored in $LOG_DIR" >>$MAIN_LOG_FILE
+echo
+echo
 
 echo "Trimming fastq data - $(date '+%Y-%m-%d %H:%M:%S')" >>$MAIN_LOG_FILE
 echo "Loading trimmomatic" >>$MAIN_LOG_FILE
@@ -26,8 +31,8 @@ UNPAIRED_OUTDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/RNA/
 mkdir -p $PAIRED_OUTDIR $UNPAIRED_OUTDIR
 ## TODO not live version yet.  Echoes.
 sbatch --partition=short --job-name=trim_rnaseq --time=02:00:00 -N 1 -n 2 --mail-type END --mail-user soo.m@northeastern.edu \
-./scripts/2_align_and_count/trim_quality_length.sh $FASTQ_INDIR $PAIRED_OUTDIR $UNPAIRED_OUTDIR \
-1>$LOG_DIR/trim/$SLURM_JOB_NAME-$SLURM_JOB_ID-trim.log 2>$LOG_DIR/trim/$SLURM_JOB_NAME-$SLURM_JOB_ID-trim.err
+--output=$LOG_DIR/%x-%j.log --error=$LOG_DIR/%x-%j.err \
+./scripts/2_align_and_count/trim_quality_length.sh $FASTQ_INDIR $PAIRED_OUTDIR $UNPAIRED_OUTDIR
 echo "trimming complete; outputs saved to ${PAIRED_OUTDIR} and ${UNPAIRED_OUTDIR}" >>$MAIN_LOG_FILE
 echo
 echo
@@ -59,8 +64,8 @@ mkdir -p $ALIGNED_BAM_DIR
 sbatch --partition short --job-name STARalignRNA --time 04:00:00 \
 --array=1-9%10 --ntasks=9 --mem=100G --cpus-per-task=1 \
 --mail-type END --mail-user soo.m@northeastern.edu \
-./scripts/star_align_rna.sh $GENOME_DIR $ALIGNED_BAM_DIR $PAIRED_OUTDIR $SAMPLE_SHEET \
-1>$LOG_DIR/align/$SLURM_JOB_NAME-$SLURM_JOB_ID-align.log 2>$LOG_DIR/align/$SLURM_JOB_NAME-$SLURM_JOB_ID-align.err
+--output=$LOG_DIR/%x-%j.log --error=$LOG_DIR/%x-%j.err \
+./scripts/star_align_rna.sh $GENOME_DIR $ALIGNED_BAM_DIR $PAIRED_OUTDIR $SAMPLE_SHEET
 echo "mapped .bam files saved to ${ALIGNED_BAM_DIR}/mapped/<sample_name>" >>$MAIN_LOG_FILE
 echo
 echo
@@ -74,9 +79,10 @@ GTF_REF=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/ref/NZ_CP012004_t
 mkdir -p ${FEATURECOUNTS_OUT_DIR}
 ## TODO not live version yet.  Echoes.
 sbatch --partition short --job-name featureCounts --time 02:00:00 -N 1 -n 4 --mail-type END \
---mail-user soo.m@northeastern.edu ./scripts/featurecounts_get_count_table.sh $FEATURECOUNTS_OUT_DIR $GTF_REF \
-$ALIGNED_BAM_DIR \
-1>$LOG_DIR/counts/$SLURM_JOB_NAME-$SLURM_JOB_ID-count.log 2>$LOG_DIR/counts/$SLURM_JOB_NAME-$SLURM_JOB_ID-count.err
+--mail-user soo.m@northeastern.edu \
+--output=$LOG_DIR/%x-%j.log --error=$LOG_DIR/%x-%j.err \
+./scripts/featurecounts_get_count_table.sh $FEATURECOUNTS_OUT_DIR $GTF_REF \
+$ALIGNED_BAM_DIR
 echo "featureCounts output saved to ${FEATURECOUNTS_OUT_DIR}" >>$MAIN_LOG_FILE
 echo
 echo
