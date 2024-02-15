@@ -25,12 +25,13 @@ echo "Loading trimmomatic" >>$MAIN_LOG_FILE
 module load trimmomatic/0.39
 module load oracle_java/jdk1.8.0_181
 echo "Running trimmomatic script" >>$MAIN_LOG_FILE
-FASTQ_INDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/input/fastq/
-PAIRED_OUTDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/RNA/trimmed/paired/
-UNPAIRED_OUTDIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/RNA/trimmed/unpaired/
+FASTQ_INDIR=$WORK_DIR/input/fastq/
+PAIRED_OUTDIR=$WORK_DIR/data/RNA/trimmed/paired/
+UNPAIRED_OUTDIR=$WORK_DIR/data/RNA/trimmed/unpaired/
 mkdir -p $PAIRED_OUTDIR $UNPAIRED_OUTDIR
 ## TODO not live version yet.  Echoes.
-sbatch --partition=short --job-name=trim_rnaseq --time=02:00:00 -N 1 -n 2 --mail-type END --mail-user soo.m@northeastern.edu \
+sbatch --partition=short --job-name=trim_rnaseq --time=02:00:00 -N 1 -n 2 \
+--mail-type END --mail-user soo.m@northeastern.edu \
 --output=$LOG_DIR/%x-%j.log --error=$LOG_DIR/%x-%j.err \
 ./scripts/2_align_and_count/trim_quality_length.sh $FASTQ_INDIR $PAIRED_OUTDIR $UNPAIRED_OUTDIR
 echo "trimming complete; outputs saved to ${PAIRED_OUTDIR} and ${UNPAIRED_OUTDIR}" >>$MAIN_LOG_FILE
@@ -57,8 +58,8 @@ echo "Aligning trimmed RNA reads to genome - $(date '+%Y-%m-%d %H:%M:%S')" >>$MA
 echo "Loading STAR" >>$MAIN_LOG_FILE
 module load star/2.7.11a
 echo "Running STAR aligner" >>$MAIN_LOG_FILE
-GENOME_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/ref
-ALIGNED_BAM_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data
+GENOME_DIR=$WORK_DIR/ref
+ALIGNED_BAM_DIR=$WORK_DIR/data  # Note that the star_align_rna.sh script directs output to ./data/mapped/<dirs>
 mkdir -p $ALIGNED_BAM_DIR
 ## TODO not live version yet.  Echoes.
 sbatch --partition short --job-name STARalignRNA --time 04:00:00 \
@@ -74,15 +75,14 @@ echo "Generating counts table - $(date '+%Y-%m-%d %H:%M:%S')" >>$MAIN_LOG_FILE
 echo "Loading subread package" >>$MAIN_LOG_FILE
 module load subread/2.0.6
 echo "Running subread.featureCounts" >>$MAIN_LOG_FILE
-FEATURECOUNTS_OUT_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/featurecounts
-GTF_REF=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/ref/NZ_CP012004_transcript2exon.gtf
+FEATURECOUNTS_OUT_DIR=$WORK_DIR/data/featurecounts
+GTF_REF=$WORK_DIR/ref/NZ_CP012004_transcript2exon.gtf
 mkdir -p ${FEATURECOUNTS_OUT_DIR}
 ## TODO not live version yet.  Echoes.
-sbatch --partition short --job-name featureCounts --time 02:00:00 -N 1 -n 4 --mail-type END \
---mail-user soo.m@northeastern.edu \
+sbatch --partition short --job-name featureCounts --time 02:00:00 -N 1 -n 4 \
+--mail-type END --mail-user soo.m@northeastern.edu \
 --output=$LOG_DIR/%x-%j.log --error=$LOG_DIR/%x-%j.err \
-./scripts/featurecounts_get_count_table.sh $FEATURECOUNTS_OUT_DIR $GTF_REF \
-$ALIGNED_BAM_DIR
+./scripts/featurecounts_get_count_table.sh $FEATURECOUNTS_OUT_DIR $GTF_REF $ALIGNED_BAM_DIR
 echo "featureCounts output saved to ${FEATURECOUNTS_OUT_DIR}" >>$MAIN_LOG_FILE
 echo
 echo
