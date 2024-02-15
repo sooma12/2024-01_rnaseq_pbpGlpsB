@@ -6,7 +6,7 @@
 WORK_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB
 CUR_DATE="$(date '+%Y-%m-%d_%H-%M')"
 LOG_DIR=${WORK_DIR}/slurm_logs/${CUR_DATE}
-MAIN_LOG_FILE=${WORK_DIR}/slurm_logs/${CUR_DATE}.log
+MAIN_LOG_FILE=${WORK_DIR}/slurm_logs/logfile_${CUR_DATE}.log
 touch $MAIN_LOG_FILE
 
 echo "Starting analysis - $(date '+%Y-%m-%d %H:%M:%S')" >>$MAIN_LOG_FILE
@@ -14,7 +14,7 @@ echo "Starting analysis - $(date '+%Y-%m-%d %H:%M:%S')" >>$MAIN_LOG_FILE
 echo "Making directory for log files." >>$MAIN_LOG_FILE
 mkdir -p $LOG_DIR
 echo "Logs will be stored in $LOG_DIR" >>$MAIN_LOG_FILE
-exit  ## TODO REMOVE
+
 echo "Trimming fastq data - $(date '+%Y-%m-%d %H:%M:%S')" >>$MAIN_LOG_FILE
 echo "Loading trimmomatic" >>$MAIN_LOG_FILE
 module load trimmomatic/0.39
@@ -31,6 +31,7 @@ sbatch --partition=short --job-name=trim_rnaseq --time=02:00:00 -N 1 -n 2 --mail
 echo "trimming complete; outputs saved to ${PAIRED_OUTDIR} and ${UNPAIRED_OUTDIR}" >>$MAIN_LOG_FILE
 echo
 echo
+exit  ## TODO REMOVE
 
 echo "Preparing sample sheet with paired files" >>$MAIN_LOG_FILE
 ## TODO not live version yet.  Echoes.
