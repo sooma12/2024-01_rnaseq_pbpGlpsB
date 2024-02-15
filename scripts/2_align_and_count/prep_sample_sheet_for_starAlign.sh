@@ -1,6 +1,8 @@
 #!/bin/bash
 # prep_sample_sheet_for_starAlign.sh
 # Makes a sample_sheet.txt containing sample ID and R1 and R2 filepaths
+# Assumes each sample file is in the format: WT_1_S84_trimmed_R2.fastq
+# Script uses a split on "_" to grab the sample ID, e.g. WT_1.  Must modify this if sample file names are different!
 # Example output line:  WT_1 /path/to/WT_1_R1.fastq /path/to/WT_1_R2.fastq
 # Usage: bash prep_sample_sheet_for_starAlign.sh <path/to/fastqs> <path/to/samplesheet>
 
@@ -22,7 +24,7 @@ paste R1.list R2.list | while read R1 R2 ;
 do
     echo $R1  # TODO REMOVE
     echo $R2  # TODO REMOVE
-    outdir_root=$(echo "${R2}" | cut -f9 -d"/" | cut -f1,2 -d"_")
+    outdir_root=$(basename ${R2} | cut -f1,2 -d"_")
     sample_line="${outdir_root} ${R1} ${R2}"
     echo "${sample_line}" >> $SAMPLE_SHEET
 done

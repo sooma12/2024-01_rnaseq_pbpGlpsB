@@ -47,7 +47,7 @@ echo "Preparing sample sheet with paired files" >>$MAIN_LOG_FILE
 SAMPLE_SHEET=${PAIRED_OUTDIR}/sample_sheet.txt
 bash ./scripts/2_align_and_count/prep_sample_sheet_for_starAlign.sh $PAIRED_OUTDIR $SAMPLE_SHEET
 echo "Sample sheet saved to ${SAMPLE_SHEET}" >>$MAIN_LOG_FILE
-echo "Sample sheet contents:"
+echo "Sample sheet contents:" >>$MAIN_LOG_FILE
 echo "$(cat $SAMPLE_SHEET)" >>$MAIN_LOG_FILE
 echo
 echo
