@@ -3,8 +3,6 @@
 # Usage FROM WORK_DIR (below): `bash scripts/pipeline_2_trim_align_counts.sh`
 # gunzipped fastq input data should be in $FASTQ_INDIR.  Don't pass .gz files!
 
-srun --partition=short --pty --export=ALL --nodes=1 --ntasks=1 --mem=10Gb --time=08:00:00 /bin/bash
-
 WORK_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB
 CUR_DATE="$(date '+%Y-%m-%d_%H-%M')"
 LOG_DIR=${WORK_DIR}/slurm_logs/${CUR_DATE}
