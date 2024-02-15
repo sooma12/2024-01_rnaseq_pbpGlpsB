@@ -51,7 +51,7 @@ echo "Sample sheet contents:" >>$MAIN_LOG_FILE
 echo "$(cat $SAMPLE_SHEET)" >>$MAIN_LOG_FILE
 echo
 echo
-exit  ## TODO REMOVE
+
 
 ## TODO another option for STAR alignment... could run sequentially on each line of SAMPLE_SHEET.
 ## Do some variable substitution to get the length of SAMPLE SHEET with wc -l <file> | awk '{print $1}'
@@ -74,6 +74,7 @@ sbatch --partition short --job-name STARalignRNA --time 04:00:00 \
 echo "mapped .bam files saved to ${ALIGNED_BAM_DIR}/mapped/<sample_name>" >>$MAIN_LOG_FILE
 echo
 echo
+exit  ## TODO REMOVE
 
 
 echo "Generating counts table - $(date '+%Y-%m-%d %H:%M:%S')" >>$MAIN_LOG_FILE
