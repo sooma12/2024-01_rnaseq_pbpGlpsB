@@ -14,7 +14,8 @@ rightInSuffix="_R2_001.fastq"
 leftOutSuffix="_trimmed_R1.fastq"
 rightOutSuffix="_trimmed_R2.fastq"
 
-FASTQ_INDIR=${1}
+FASTQ_INDIR_NO_SLASH=${1}
+FASTQ_INDIR=$FASTQ_INDIR_NO_SLASH/
 PAIRED_OUTDIR=${2}
 UNPAIRED_OUTDIR=${3}
 
