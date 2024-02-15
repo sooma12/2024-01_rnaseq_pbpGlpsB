@@ -44,7 +44,7 @@ echo "Preparing sample sheet with paired files" >>$MAIN_LOG_FILE
 SAMPLE_SHEET=${PAIRED_OUTDIR}/sample_sheet.txt
 samplesheet_jobstring=$(sbatch --dependency afterany:${trim_jobid} --partition express --job-name make_samplesheet \
 --time 00:10:00 -N 1 -n 1 --output $LOG_DIR/%x-%j.log --error $LOG_DIR/%x-%j.err \
-./scripts/2_align_and_count/prep_sample_sheet_for_starAlign.sh $PAIRED_OUTDIR $SAMPLE_SHEET)
+./scripts/2_align_and_count/prep_sample_sheet_for_starAlign.sh $PAIRED_OUTDIR/ $SAMPLE_SHEET)
 samplesheet_jobid=${samplesheet_jobstring##* }
 echo "Sample sheet saved to ${SAMPLE_SHEET}" >>$MAIN_LOG_FILE
 echo "Sample sheet contents:" >>$MAIN_LOG_FILE
