@@ -6,8 +6,9 @@
 
 WORK_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB
 CUR_DATE="$(date '+%Y-%m-%d_%H-%M')"
-LOG_DIR=${WORK_DIR}/slurm_logs/${CUR_DATE}
-MAIN_LOG_FILE=${WORK_DIR}/slurm_logs/logfile_${CUR_DATE}.log
+## TODO Remove "temp" from the paths below.  Just doing this for simplicity.  rm -r ./slurm_logs/temp
+LOG_DIR=${WORK_DIR}/slurm_logs/temp/${CUR_DATE}
+MAIN_LOG_FILE=${WORK_DIR}/slurm_logs/temp/logfile_${CUR_DATE}.log
 touch $MAIN_LOG_FILE
 
 echo "Starting analysis - $(date '+%Y-%m-%d %H:%M:%S')" >>$MAIN_LOG_FILE
