@@ -41,7 +41,7 @@ wd <- "/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/"
 setwd(wd)
 
 ## Read in raw data and prepare feature count table
-feature_count <- read.table("./featurecounts/counts_noposttrim.txt", header=TRUE, row.names = 1)
+feature_count <- read.table("./featurecounts/counts.txt", header=TRUE, row.names = 1)
 # Grab the count data
 data <- feature_count[,6:14]
 # view(data)
@@ -49,7 +49,7 @@ data <- feature_count[,6:14]
 ## Set up column names in feature count data AND prep metadata table with strains and conditions
 # Trim column names down to just the sample IDs
 column_names <- colnames(data)
-column_names <- sub("X.work.geisingerlab.Mark.rnaSeq.2024.01_rnaseq_pbpGlpsB.data.mapped.", "", column_names)
+column_names <- sub("data.mapped..", "", column_names)
 column_names <- sub("Aligned.sortedByCoord.out.bam", "", column_names)
 column_names
 colnames(data) <- column_names
@@ -81,13 +81,21 @@ resultsNames(dds)  # get names of coefficients to shrink
 # Use default shrinkage, which is apeglm method (Zhu, Ibrahim, and Love 2018)
 resLFC_pbpG <- lfcShrink(dds, coef="condition_DpbpG_vs_WT", type="apeglm")
 resLFC_lpsB <- lfcShrink(dds, coef="condition_DlpsB_vs_WT", type="apeglm")
+# Clean up row names
+pbpG_rownames <- sub('gene-', '', row.names(resLFC_pbpG))
+lpsB_rownames <- sub('gene-', '', row.names(resLFC_lpsB))
+row.names(resLFC_pbpG) <- pbpG_rownames
+row.names(resLFC_lpsB) <- lpsB_rownames
 
 # Count significant hits
 sum(resLFC_pbpG$padj < 0.1, na.rm=TRUE)
+sum(resLFC_pbpG$padj < 0.1 & abs(resLFC_pbpG$log2FoldChange) > 1, na.rm=TRUE)
 sum(resLFC_lpsB$padj < 0.1, na.rm=TRUE)
+sum(resLFC_lpsB$padj < 0.1 & abs(resLFC_lpsB$log2FoldChange) > 1, na.rm=TRUE)
 
 # Check largest foldchanges from significant hits
 resSigPbpG <- resLFC_pbpG[which(resLFC_pbpG$padj < 0.1), ]
+
 #downregulated
 head(resSigPbpG[order(resSigPbpG$log2FoldChange),])  # Verify pbpG (RS16895) is top hit
 #upregulated
@@ -125,6 +133,6 @@ plotMA(resLFC_lpsB, ylim=c(-1, 1))
 
 # Save current analyses
 pbpGresOrdered <- resLFC_pbpG[order(resLFC_pbpG$pvalue),]
-write.csv(as.data.frame(pbpGresOrdered), file="pbpG_results_2024-02-07.csv")
+write.csv(as.data.frame(pbpGresOrdered), file="DES_pbpG_2024-02-16.csv")
 lpsBresOrdered <- resLFC_lpsB[order(resLFC_lpsB$pvalue),]
-write.csv(as.data.frame(lpsBresOrdered), file="lpsB_results_2024-02-07.csv")
+write.csv(as.data.frame(lpsBresOrdered), file="DES_lpsB_2024-02-16.csv")
