@@ -137,4 +137,8 @@ All 9 .bam files were analyzed using `-p --countReadPairs` to specify paired-end
 An RStudio Rocker Container on Northeastern University's Discovery cluster was used for differential expression (via Open OnDemand).
 
 WRITE ME MORE!!
+- DESeq
+- apeglm for LFC shrinkage (CITE     Zhu, A., Ibrahim, J.G., Love, M.I. (2018) Heavy-tailed prior distributions for
+    sequence count data: removing the noise and preserving large differences.
+    Bioinformatics. https://doi.org/10.1093/bioinformatics/bty895)
 
