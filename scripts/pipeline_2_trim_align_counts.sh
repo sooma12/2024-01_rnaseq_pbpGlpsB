@@ -34,6 +34,7 @@ trim_jobstring=$(sbatch --partition short --job-name trim_rnaseq --time 02:00:00
 --mail-type END --mail-user soo.m@northeastern.edu \
 --output $LOG_DIR/%x-%j.log --error $LOG_DIR/%x-%j.err \
 ./scripts/2_align_and_count/trim_quality_length.sh $FASTQ_INDIR $PAIRED_OUTDIR $UNPAIRED_OUTDIR)
+wait
 trim_jobid=${trim_jobstring##* }
 echo "trimming complete; outputs saved to ${PAIRED_OUTDIR} and ${UNPAIRED_OUTDIR}" >>$MAIN_LOG_FILE
 echo
@@ -45,6 +46,7 @@ SAMPLE_SHEET=${PAIRED_OUTDIR}/sample_sheet.txt
 samplesheet_jobstring=$(sbatch --dependency afterany:${trim_jobid} --partition express --job-name make_samplesheet \
 --time 00:10:00 -N 1 -n 1 --output $LOG_DIR/%x-%j.log --error $LOG_DIR/%x-%j.err \
 ./scripts/2_align_and_count/prep_sample_sheet_for_starAlign.sh $PAIRED_OUTDIR/ $SAMPLE_SHEET)
+wait
 samplesheet_jobid=${samplesheet_jobstring##* }
 echo "Sample sheet saved to ${SAMPLE_SHEET}" >>$MAIN_LOG_FILE
 echo "Sample sheet contents:" >>$MAIN_LOG_FILE
@@ -70,6 +72,7 @@ align_jobstring=$(sbatch --dependency afterany:${samplesheet_jobid} --partition 
 --mail-type END --mail-user soo.m@northeastern.edu \
 --output $LOG_DIR/%x-%j.log --error $LOG_DIR/%x-%j.err \
 ./scripts/2_align_and_count/star_align_rna.sh $GENOME_DIR $ALIGNED_BAM_DIR $SAMPLE_SHEET)
+wait
 align_jobid=${align_jobstring##* }
 echo "mapped .bam files saved to ${ALIGNED_BAM_DIR}/mapped/<sample_name>" >>$MAIN_LOG_FILE
 echo
@@ -88,6 +91,7 @@ sbatch --dependency=afterany:${align_jobid} --partition short --job-name feature
 --mail-type END --mail-user soo.m@northeastern.edu \
 --output $LOG_DIR/%x-%j.log --error $LOG_DIR/%x-%j.err \
 ./scripts/2_align_and_count/featurecounts_get_count_table.sh $FEATURECOUNTS_OUT_DIR $GTF_REF $STAR_MAPPED_DIR
+wait
 echo "featureCounts output saved to ${FEATURECOUNTS_OUT_DIR}" >>$MAIN_LOG_FILE
 echo
 echo
