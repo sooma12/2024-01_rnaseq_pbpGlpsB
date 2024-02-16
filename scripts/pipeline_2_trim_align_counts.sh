@@ -82,11 +82,12 @@ module load subread/2.0.6
 echo "Running subread.featureCounts" >>$MAIN_LOG_FILE
 FEATURECOUNTS_OUT_DIR=$WORK_DIR/data/featurecounts
 GTF_REF=$WORK_DIR/ref/NZ_CP012004_transcript2exon.gtf
+STAR_MAPPED_DIR=$ALIGNED_BAM_DIR/mapped
 mkdir -p ${FEATURECOUNTS_OUT_DIR}
 sbatch --dependency=afterany:${align_jobid} --partition short --job-name featureCounts --time 02:00:00 -N 1 -n 4 \
 --mail-type END --mail-user soo.m@northeastern.edu \
 --output $LOG_DIR/%x-%j.log --error $LOG_DIR/%x-%j.err \
-./scripts/2_align_and_count/featurecounts_get_count_table.sh $FEATURECOUNTS_OUT_DIR $GTF_REF $ALIGNED_BAM_DIR
+./scripts/2_align_and_count/featurecounts_get_count_table.sh $FEATURECOUNTS_OUT_DIR $GTF_REF $STAR_MAPPED_DIR
 echo "featureCounts output saved to ${FEATURECOUNTS_OUT_DIR}" >>$MAIN_LOG_FILE
 echo
 echo
