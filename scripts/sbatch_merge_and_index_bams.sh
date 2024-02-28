@@ -30,17 +30,17 @@ module load samtools/1.10
 echo "Merging samples from strain: ${STRAIN_1}"
 STRAIN_1_BAM_LIST=${MERGE_DIR}${STRAIN_1}_bams.list
 ls ${BAM_IN_DIR}${STRAIN_1}*${BAM_SUFFIX} >${STRAIN_1_BAM_LIST}
-samtools merge -b ${STRAIN_1_BAM_LIST} ${STRAIN_1}_merged.bam
+samtools merge -b ${STRAIN_1_BAM_LIST} ${MERGE_DIR}${STRAIN_1}_merged.bam
 
 echo "Merging samples from strain: ${STRAIN_2}"
 STRAIN_2_BAM_LIST=${MERGE_DIR}${STRAIN_2}_bams.list
 ls ${BAM_IN_DIR}${STRAIN_2}*${BAM_SUFFIX} >${STRAIN_2_BAM_LIST}
-samtools merge -b ${STRAIN_2_BAM_LIST} ${STRAIN_2}_merged.bam
+samtools merge -b ${STRAIN_2_BAM_LIST} ${MERGE_DIR}${STRAIN_2}_merged.bam
 
 echo "Merging samples from strain: ${STRAIN_3}"
 STRAIN_3_BAM_LIST=${MERGE_DIR}${STRAIN_3}_bams.list
 ls ${BAM_IN_DIR}${STRAIN_3}*${BAM_SUFFIX} >${STRAIN_3_BAM_LIST}
-samtools merge -b ${STRAIN_3_BAM_LIST} ${STRAIN_3}_merged.bam
+samtools merge -b ${STRAIN_3_BAM_LIST} ${MERGE_DIR}${STRAIN_3}_merged.bam
 
 echo "Indexing merged bam files"
 for merged_bam in ${MERGE_DIR}*_merged.bam; do
