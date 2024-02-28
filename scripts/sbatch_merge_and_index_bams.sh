@@ -13,7 +13,7 @@
 BAM_IN_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/mapped/
 MERGE_DIR=/work/geisingerlab/Mark/rnaSeq/2024-01_rnaseq_pbpGlpsB/data/merged_bams/
 BAM_SUFFIX=Aligned.sortedByCoord.out.bam
-STRAIN_1=WT
+STRAIN_1=WT3
 STRAIN_2=DpbpG
 STRAIN_3=DlpsB
 
