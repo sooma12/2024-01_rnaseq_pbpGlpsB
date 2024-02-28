@@ -25,5 +25,6 @@ featureCounts \
 -a $GTF_REF \
 -o $OUT_DIR/srna_counts.txt \
 -p \
+-t sRNA \
 --countReadPairs \
 $STAR_DIR/*.bam
