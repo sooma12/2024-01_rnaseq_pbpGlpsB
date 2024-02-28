@@ -18,7 +18,7 @@ STRAIN_2=DpbpG
 STRAIN_3=DlpsB
 
 # Make out directories
-mkdir -p MERGE_DIR
+mkdir -p $MERGE_DIR
 
 # Load modules
 echo "Loading anaconda and samtools"
